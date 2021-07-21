@@ -18,7 +18,7 @@ class JwtService extends FuseUtils.EventEmitter {
 				return new Promise((resolve, reject) => {
 					if (err.response.status === 401 && err.config && !err.config.__isRetryRequest) {
 						// if you ever get an unauthorized response, logout the user
-						this.emit('onAutoLogout', 'Invalid access_token');
+						this.emit('onAutoLogout', 'Invalid Credentials');
 						this.setSession(null);
 					}
 					throw err;
@@ -47,25 +47,29 @@ class JwtService extends FuseUtils.EventEmitter {
 
 	createUser = data => {
 		return new Promise((resolve, reject) => {
-			axios.post('/api/auth/register', data).then(response => {
-				if (response.data.user) {
-					this.setSession(response.data.access_token);
-					resolve(response.data.user);
-				} else {
-					reject(response.data.error);
-				}
-			});
+			axios
+				.post('/api/auth/register', data)
+				.then(response => {
+					console.log(response);
+					if (response.data.user) {
+						this.setSession(response.data.access_token);
+						resolve(response.data.user);
+					} else {
+						reject(response.data.error);
+					}
+				})
+				.catch(response => {
+					reject(response.response.data.errors);
+				});
 		});
 	};
 
 	signInWithEmailAndPassword = (email, password) => {
 		return new Promise((resolve, reject) => {
 			axios
-				.get('/api/auth', {
-					data: {
-						email,
-						password
-					}
+				.post('/api/auth/login', {
+					email,
+					password
 				})
 				.then(response => {
 					if (response.data.user) {
@@ -81,7 +85,7 @@ class JwtService extends FuseUtils.EventEmitter {
 	signInWithToken = () => {
 		return new Promise((resolve, reject) => {
 			axios
-				.get('/api/auth/access-token', {
+				.get('/api/auth/check', {
 					data: {
 						access_token: this.getAccessToken()
 					}
@@ -119,7 +123,9 @@ class JwtService extends FuseUtils.EventEmitter {
 	};
 
 	logout = () => {
-		this.setSession(null);
+		return axios.post('/api/auth/logout').then(response => {
+			this.setSession(null);
+		});
 	};
 
 	isAuthTokenValid = access_token => {

@@ -5,12 +5,15 @@ import jwtService from 'app/services/jwtService';
 import { createUserSettingsFirebase, setUserData } from './userSlice';
 
 export const submitRegister =
-	({ displayName, password, email }) =>
+	({ firstname, middlename, lastname, password, email, passwordConfirmation }) =>
 	async dispatch => {
 		return jwtService
 			.createUser({
-				displayName,
+				firstname,
+				middlename,
+				lastname,
 				password,
+				password_confirmation: passwordConfirmation,
 				email
 			})
 			.then(user => {

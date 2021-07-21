@@ -26,13 +26,13 @@ const schema = yup.object().shape({
 		.string()
 		.required('Please enter your password.')
 		.min(8, 'Password is too short - should be 8 chars minimum.'),
-	passwordConfirm: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match')
+	password_confirmation: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match')
 });
 
 const defaultValues = {
 	email: '',
 	password: '',
-	passwordConfirm: ''
+	password_confirmation: ''
 };
 
 function ResetPasswordPage() {
@@ -106,7 +106,7 @@ function ResetPasswordPage() {
 								/>
 
 								<Controller
-									name="passwordConfirm"
+									name="password_confirmation"
 									control={control}
 									render={({ field }) => (
 										<TextField
@@ -114,8 +114,8 @@ function ResetPasswordPage() {
 											className="mb-16"
 											label="Password (Confirm)"
 											type="password"
-											error={!!errors.passwordConfirm}
-											helperText={errors?.passwordConfirm?.message}
+											error={!!errors.password_confirmation}
+											helperText={errors?.password_confirmation?.message}
 											variant="outlined"
 											required
 											fullWidth

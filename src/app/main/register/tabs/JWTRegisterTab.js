@@ -14,20 +14,24 @@ import _ from '@lodash';
  * Form Validation Schema
  */
 const schema = yup.object().shape({
-	displayName: yup.string().required('You must enter display name'),
+	firstname: yup.string().required('You must enter display name'),
+	middlename: yup.string().required('You must enter display name'),
+	lastname: yup.string().required('You must enter display name'),
 	email: yup.string().email('You must enter a valid email').required('You must enter a email'),
 	password: yup
 		.string()
 		.required('Please enter your password.')
 		.min(8, 'Password is too short - should be 8 chars minimum.'),
-	passwordConfirm: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match')
+	passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match')
 });
 
 const defaultValues = {
-	displayName: '',
+	firstname: '',
+	middlename: '',
+	lastname: '',
 	email: '',
 	password: '',
-	passwordConfirm: ''
+	passwordConfirmation: ''
 };
 
 function JWTRegisterTab(props) {
@@ -43,10 +47,13 @@ function JWTRegisterTab(props) {
 	const { isValid, dirtyFields, errors } = formState;
 
 	useEffect(() => {
-		authRegister.errors.forEach(error => {
-			setError(error.type, {
-				type: 'manual',
-				message: error.message
+		Object.keys(authRegister.errors).forEach(key => {
+			const messages = authRegister.errors[key];
+			messages.forEach(message => {
+				setError(key, {
+					type: 'manual',
+					message
+				});
 			});
 		});
 	}, [authRegister.errors, setError]);
@@ -59,16 +66,67 @@ function JWTRegisterTab(props) {
 		<div className="w-full">
 			<form className="flex flex-col justify-center w-full" onSubmit={handleSubmit(onSubmit)}>
 				<Controller
-					name="displayName"
+					name="firstname"
 					control={control}
 					render={({ field }) => (
 						<TextField
 							{...field}
 							className="mb-16"
 							type="text"
-							label="Display name"
-							error={!!errors.displayName}
-							helperText={errors?.displayName?.message}
+							label="First Name"
+							error={!!errors.firstname}
+							helperText={errors?.firstname?.message}
+							InputProps={{
+								endAdornment: (
+									<InputAdornment position="end">
+										<Icon className="text-20" color="action">
+											person
+										</Icon>
+									</InputAdornment>
+								)
+							}}
+							variant="outlined"
+							required
+						/>
+					)}
+				/>
+				<Controller
+					name="middlename"
+					control={control}
+					render={({ field }) => (
+						<TextField
+							{...field}
+							className="mb-16"
+							type="text"
+							label="First Name"
+							error={!!errors.middlename}
+							helperText={errors?.middlename?.message}
+							InputProps={{
+								endAdornment: (
+									<InputAdornment position="end">
+										<Icon className="text-20" color="action">
+											person
+										</Icon>
+									</InputAdornment>
+								)
+							}}
+							variant="outlined"
+							required
+						/>
+					)}
+				/>
+
+				<Controller
+					name="lastname"
+					control={control}
+					render={({ field }) => (
+						<TextField
+							{...field}
+							className="mb-16"
+							type="text"
+							label="First Name"
+							error={!!errors.lastname}
+							helperText={errors?.lastname?.message}
 							InputProps={{
 								endAdornment: (
 									<InputAdornment position="end">
@@ -137,7 +195,7 @@ function JWTRegisterTab(props) {
 				/>
 
 				<Controller
-					name="passwordConfirm"
+					name="passwordConfirmation"
 					control={control}
 					render={({ field }) => (
 						<TextField
@@ -145,8 +203,8 @@ function JWTRegisterTab(props) {
 							className="mb-16"
 							type="password"
 							label="Confirm Password"
-							error={!!errors.passwordConfirm}
-							helperText={errors?.passwordConfirm?.message}
+							error={!!errors.passwordConfirmation}
+							helperText={errors?.passwordConfirmation?.message}
 							InputProps={{
 								endAdornment: (
 									<InputAdornment position="end">

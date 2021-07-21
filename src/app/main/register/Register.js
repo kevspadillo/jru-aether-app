@@ -58,57 +58,23 @@ function Register() {
 					)}
 					square
 				>
-					<CardContent className="flex flex-col items-center justify-center w-full py-96 max-w-320">
+					<CardContent className="flex flex-col w-full py-96 max-w-320">
 						<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.2 } }}>
-							<div className="flex items-center justif-center mb-32">
-								<img className="logo-icon w-48" src="assets/images/logos/fuse.svg" alt="logo" />
-								<div className="border-l-1 mr-4 w-1 h-40" />
+							<div className="flex mb-32">
 								<div>
 									<Typography className="text-24 font-semibold logo-text" color="inherit">
-										FUSE
+										JOSE RIZAL COLLEGE
 									</Typography>
 									<Typography
 										className="text-16 tracking-widest -mt-8 font-700"
 										color="textSecondary"
 									>
-										REACT
+										Multipurpose Cooperative
 									</Typography>
 								</div>
 							</div>
 						</motion.div>
-
-						<Tabs
-							value={selectedTab}
-							onChange={handleTabChange}
-							variant="fullWidth"
-							className="w-full mb-32"
-						>
-							<Tab
-								icon={
-									<img
-										className="h-40 p-4 bg-black rounded-12"
-										src="assets/images/logos/jwt.svg"
-										alt="firebase"
-									/>
-								}
-								className="min-w-0"
-								label="JWT"
-							/>
-							<Tab
-								icon={<img className="h-40" src="assets/images/logos/firebase.svg" alt="firebase" />}
-								className="min-w-0"
-								label="Firebase"
-							/>
-							<Tab
-								icon={<img className="h-40" src="assets/images/logos/auth0.svg" alt="auth0" />}
-								className="min-w-0"
-								label="Auth0"
-							/>
-						</Tabs>
-
-						{selectedTab === 0 && <JWTRegisterTab />}
-						{selectedTab === 1 && <FirebaseRegisterTab />}
-						{selectedTab === 2 && <Auth0RegisterTab />}
+						<JWTRegisterTab />
 					</CardContent>
 
 					<div className="flex flex-col items-center justify-center pb-32">
@@ -118,9 +84,6 @@ function Register() {
 								Login
 							</Link>
 						</div>
-						<Link className="font-normal mt-8" to="/">
-							Back to Dashboard
-						</Link>
 					</div>
 				</Card>
 
@@ -132,14 +95,14 @@ function Register() {
 						>
 							<Typography variant="h3" color="inherit" className="font-semibold leading-tight">
 								Welcome <br />
-								to the <br /> FUSE React!
+								to the <br /> JRCMPC!
 							</Typography>
 						</motion.div>
 
 						<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.3 } }}>
 							<Typography variant="subtitle1" color="inherit" className="mt-32">
-								Powerful and professional admin template for Web Applications, CRM, CMS, Admin Panels
-								and more.
+								Create an account today and find out your credit rate with our new Credit Prediction
+								Model.
 							</Typography>
 						</motion.div>
 					</div>

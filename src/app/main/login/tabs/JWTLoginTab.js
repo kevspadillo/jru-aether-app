@@ -42,11 +42,6 @@ function JWTLoginTab(props) {
 	const [showPassword, setShowPassword] = useState(false);
 
 	useEffect(() => {
-		setValue('email', 'admin@fusetheme.com', { shouldDirty: true, shouldValidate: true });
-		setValue('password', 'admin', { shouldDirty: true, shouldValidate: true });
-	}, [reset, setValue, trigger]);
-
-	useEffect(() => {
 		login.errors.forEach(error => {
 			setError(error.type, {
 				type: 'manual',
@@ -129,56 +124,6 @@ function JWTLoginTab(props) {
 					Login
 				</Button>
 			</form>
-
-			<table className="w-full mt-32 text-center">
-				<thead className="mb-4">
-					<tr>
-						<th>
-							<Typography className="font-semibold text-11" color="textSecondary">
-								Role
-							</Typography>
-						</th>
-						<th>
-							<Typography className="font-semibold text-11" color="textSecondary">
-								Email
-							</Typography>
-						</th>
-						<th>
-							<Typography className="font-semibold text-11" color="textSecondary">
-								Password
-							</Typography>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>
-							<Typography className="font-medium text-11" color="textSecondary">
-								Admin
-							</Typography>
-						</td>
-						<td>
-							<Typography className="text-11">admin@fusetheme.com</Typography>
-						</td>
-						<td>
-							<Typography className="text-11">admin</Typography>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<Typography className="font-medium text-11" color="textSecondary">
-								Staff
-							</Typography>
-						</td>
-						<td>
-							<Typography className="text-11">staff@fusetheme.com</Typography>
-						</td>
-						<td>
-							<Typography className="text-11">staff</Typography>
-						</td>
-					</tr>
-				</tbody>
-			</table>
 		</div>
 	);
 }

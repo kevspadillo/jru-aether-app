@@ -31,7 +31,7 @@ const schema = yup.object().shape({
 		.string()
 		.required('Please enter your password.')
 		.min(8, 'Password is too short - should be 8 chars minimum.'),
-	passwordConfirm: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match'),
+	passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match'),
 	acceptTermsConditions: yup.boolean().oneOf([true], 'The terms and conditions must be accepted.')
 });
 
@@ -39,7 +39,7 @@ const defaultValues = {
 	name: '',
 	email: '',
 	password: '',
-	passwordConfirm: '',
+	passwordConfirmation: '',
 	acceptTermsConditions: false
 };
 
@@ -132,7 +132,7 @@ function RegisterPage() {
 								/>
 
 								<Controller
-									name="passwordConfirm"
+									name="passwordConfirmation"
 									control={control}
 									render={({ field }) => (
 										<TextField
@@ -140,8 +140,8 @@ function RegisterPage() {
 											className="mb-16"
 											label="Password (Confirm)"
 											type="password"
-											error={!!errors.passwordConfirm}
-											helperText={errors?.passwordConfirm?.message}
+											error={!!errors.passwordConfirmation}
+											helperText={errors?.passwordConfirmation?.message}
 											variant="outlined"
 											required
 											fullWidth

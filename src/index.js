@@ -8,9 +8,12 @@ import './react-chartjs-2-defaults';
 import './styles/app-base.css';
 import './styles/app-components.css';
 import './styles/app-utilities.css';
+import axios from 'axios';
 import App from 'app/App';
 import * as serviceWorker from './serviceWorker';
 import reportWebVitals from './reportWebVitals';
+
+axios.defaults.baseURL = process.env.REACT_APP_AETHER_API_URL;
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
